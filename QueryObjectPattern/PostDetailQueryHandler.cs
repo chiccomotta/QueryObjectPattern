@@ -2,6 +2,7 @@
 
 namespace QueryObjectPattern
 {
+    // Handler che gestisce l'esecuzione della query tramite l'implementazione dell'interfaccia Execute
     public class PostDetailQueryHandler : IPostDetailQueryHandler
     {
         protected object DbContext;
@@ -11,6 +12,7 @@ namespace QueryObjectPattern
             this.DbContext = dbContext;
         }
         
+        // Questa è l'implementazione vera della query
         public async Task<Post> Execute(PostDetailQuery query)
         {
             // Implementation of query:
