@@ -21,7 +21,7 @@ namespace QueryObjectPattern
             // Other example:
             // DbContext.Posts.Where(x => x.Created <= query.Created)
 
-            return new Post();
+            return await Task.Run(() => new Post());
         }
     }
 }
