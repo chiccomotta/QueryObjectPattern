@@ -1,13 +1,15 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace QueryObjectPattern
 {
     // Handler che gestisce l'esecuzione della query tramite l'implementazione dell'interfaccia Execute
     public class PostDetailQueryHandler : IPostDetailQueryHandler
     {
-        protected object DbContext;
+        protected DbContext DbContext;
 
-        public PostDetailQueryHandler(object dbContext)
+        // Il DbContext viene iniettato dal container DI
+        public PostDetailQueryHandler(DbContext dbContext)
         {
             this.DbContext = dbContext;
         }

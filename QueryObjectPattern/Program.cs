@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using QueryObjectPattern.DAL;
 
 namespace QueryObjectPattern
 {
@@ -10,11 +12,13 @@ namespace QueryObjectPattern
             // Query Object
             var query = new PostDetailQuery(123, null);
 
+            DbContextOptions<StudioDBContext> options = new DbContextOptions<StudioDBContext>();
+
             // DbContext (in verità arriva dal container DI)
-            var DbContext = new object();
+            DbContext dbContext = new StudioDBContext(options);
 
             // Execute Query
-            var result = new PostDetailQueryHandler(DbContext).Execute(query);
+            var result = new PostDetailQueryHandler(dbContext).Execute(query);
 
             // Post object
             Debug.Write(result);
