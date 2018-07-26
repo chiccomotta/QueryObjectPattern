@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 using QueryObjectPattern.DAL;
 
 namespace QueryObjectPattern
@@ -9,19 +9,31 @@ namespace QueryObjectPattern
     {
         static void Main(string[] args)
         {
+            // DbContext (in verità arriva dal container DI)
+            var dbContext = new StudioDBContext();
+
             // Query Object
             var query = new PostDetailQuery(123, null);
-
-            DbContextOptions<StudioDBContext> options = new DbContextOptions<StudioDBContext>();
-
-            // DbContext (in verità arriva dal container DI)
-            DbContext dbContext = new StudioDBContext(options);
 
             // Execute Query
             var result = new PostDetailQueryHandler(dbContext).Execute(query);
 
             // Post object
             Debug.Write(result);
+
+            // ****
+            // Creo un oggetto QueryObject
+            CustomerByStatusAndIdQuery queryObj =
+                new CustomerByStatusAndIdQuery(dbContext)
+                {
+                    Status = 1,
+                    Id = 1
+                };
+
+            var result2 = queryObj.Execute();
+            Console.WriteLine(result2.Nome);
+            Console.WriteLine(result2.Cognome);
+
             Console.ReadKey();
         }
     }
