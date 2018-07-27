@@ -21,6 +21,7 @@ namespace QueryObjectPattern.DAL
         public virtual DbSet<SellOutImportTranscoding> SellOutImportTranscoding { get; set; }
         public virtual DbSet<Spices> Spices { get; set; }
         public virtual DbSet<Test1> Test1 { get; set; }
+        public virtual DbSet<Book<Spices>> Books { get; set; }
 
         // Unable to generate entity type for table 'dbo.ClientiRanbaxy'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.NewClientiRanbaxy'. Please see the warning messages.
@@ -90,8 +91,7 @@ namespace QueryObjectPattern.DAL
                 entity.HasKey(e => e.SpiceId);
 
                 entity.Property(e => e.SpiceId)
-                    .HasColumnName("SpiceID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("SpiceID").ValueGeneratedOnAdd();
 
                 entity.Property(e => e.SpiceMixName).HasMaxLength(64);
 

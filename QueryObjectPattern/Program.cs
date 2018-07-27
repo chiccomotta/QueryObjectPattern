@@ -9,6 +9,9 @@ namespace QueryObjectPattern
     {
         static void Main(string[] args)
         {
+            AddBook();
+            return;
+
             // DbContext (in verità arriva dal container DI)
             var dbContext = new StudioDBContext();
 
@@ -35,6 +38,22 @@ namespace QueryObjectPattern
             Console.WriteLine(result2.Cognome);
 
             Console.ReadKey();
+        }
+
+        public static void AddBook()
+        {
+            var book = new Book<Spices>
+            {
+                Spice = new Spices()
+                {
+                    SpiceMixName = "Zuppa di ceci",
+                    Supplier = "Boh"
+                }
+            };
+
+            var context = new StudioDBContext();
+            context.Books.Add(book);
+            context.SaveChanges();
         }
     }
 }
