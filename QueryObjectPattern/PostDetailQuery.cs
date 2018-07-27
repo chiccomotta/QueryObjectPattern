@@ -32,6 +32,13 @@ namespace QueryObjectPattern
         {
             return (x =>  x.Id == Id && x.Status == 1);
         }
+        
+        // Esempio con un predicato Func<T1, T2, TResult>
+        public Expression<Func<Post, Blog , bool>> QueryPostAndBlog()
+        {
+            return (post, blog) => post.Title == "Titolo" && blog.Name == "Ciccio";
+        }
+
 
         public Customers Execute()
         {
