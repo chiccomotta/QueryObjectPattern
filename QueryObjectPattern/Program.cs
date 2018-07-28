@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 using QueryObjectPattern.DAL;
 
 namespace QueryObjectPattern
@@ -9,11 +10,14 @@ namespace QueryObjectPattern
     {
         static void Main(string[] args)
         {
-            AddBook();
+            TestQueryQueryable();
             return;
 
             // DbContext (in verità arriva dal container DI)
             var dbContext = new StudioDBContext();
+
+            //AddBook();
+            //return;
 
             // Query Object
             var query = new PostDetailQuery(123, null);
@@ -54,6 +58,28 @@ namespace QueryObjectPattern
             var context = new StudioDBContext();
             context.Books.Add(book);
             context.SaveChanges();
+        }
+
+        public static void TestQueryQueryable()
+        {
+            // DbContext (in verità arriva dal container DI)
+            var dbContext = new StudioDBContext();
+
+            // Creo un oggetto QueryObjectQueryable
+            CustomersInDate queryObj =
+                new CustomersInDate(dbContext)
+                {
+                    StartDate = DateTime.Parse("2017-12-31"),
+                    EndDate = null
+                };
+
+            var result = queryObj.Execute();
+            foreach (var customer in result)
+            {
+                Console.WriteLine(customer.Nome + " " + customer.Cognome );
+            }
+
+            Console.ReadKey();
         }
     }
 }

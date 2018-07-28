@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QueryObjectPattern.DAL;
 
 namespace QueryObjectPattern.Migrations
 {
     [DbContext(typeof(StudioDBContext))]
-    partial class StudioDBContextModelSnapshot : ModelSnapshot
+    [Migration("20180728202713_added-signupdate")]
+    partial class addedsignupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

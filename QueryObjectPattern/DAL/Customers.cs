@@ -10,5 +10,6 @@ namespace QueryObjectPattern.DAL
         public string Cognome { get; set; }
         public int? Matricola { get; set; }
         public int Status { get; set; }
+        public DateTime SignUpDate{ get; set; }
     }
 }
