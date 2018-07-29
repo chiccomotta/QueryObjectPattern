@@ -1,4 +1,4 @@
-﻿namespace QueryObjectPattern
+﻿namespace QueryObjectPattern.Dto
 {
     public class CustomersDto
     {

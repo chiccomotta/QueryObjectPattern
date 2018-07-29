@@ -1,6 +1,6 @@
 ﻿using QueryObjectPattern.DAL;
 
-namespace QueryObjectPattern
+namespace QueryObjectPattern.QueryObjects.Infrastructure
 {
     public class QueryBase
     {

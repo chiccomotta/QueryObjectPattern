@@ -12,34 +12,7 @@ namespace QueryObjectPattern
         {
             TestQueryDto();
             TestQuery();
-
-            // DbContext (in verità arriva dal container DI)
-            var dbContext = new StudioDBContext();
-
-            //AddBook();
-            //return;
-
-            // Query Object
-            var query = new PostDetailQuery(123, null);
-;
-            // Execute Query
-            var result = new PostDetailQueryHandler(dbContext).Execute(query);
-
-            // Post object
-            Debug.Write(result);
-
-            // ****
-            // Creo un oggetto QueryObjectOldVersion
-            CustomerByStatusAndIdQuery queryObj =
-                new CustomerByStatusAndIdQuery(dbContext)
-                {
-                    Status = 1,
-                    Id = 1
-                };
-
-            var result2 = queryObj.Execute();
-            Console.WriteLine(result2.Nome);
-            Console.WriteLine(result2.Cognome);
+            AddBook();
 
             Console.ReadKey();
         }

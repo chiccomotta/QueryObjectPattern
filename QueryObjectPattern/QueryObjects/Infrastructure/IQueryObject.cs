@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
-namespace QueryObjectPattern
+namespace QueryObjectPattern.QueryObjects.Infrastructure
 {
     public interface IQueryObject<out T, out TResult>
     {
