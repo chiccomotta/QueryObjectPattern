@@ -1,13 +1,12 @@
-﻿using QueryObjectPattern.DAL;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using QueryObjectPattern.DAL;
 using QueryObjectPattern.Dto;
 using QueryObjectPattern.QueryableExtensions;
 using QueryObjectPattern.QueryObjects.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-
-namespace QueryObjectPattern
+namespace QueryObjectPattern.QueryObjects
 {
     // Esempio 2 - Stesso caso dell'esempio 3 ma la query ritorna una lista di Dto
     public class CustomersInDateDtoQueryObject : QueryBase, IQueryObject<Customers, List<CustomersDto>>
@@ -27,7 +26,7 @@ namespace QueryObjectPattern
             return Query()
                 .Select(c => new CustomersDto()
                 {
-                    FullName = c.Nome + " " + c.Cognome,
+                    FullName = $"{c.Nome}  {c.Cognome}",
                     Matricola = c.Matricola.Value,
                     Password = new Random().Next().ToString()
                 })
@@ -44,5 +43,4 @@ namespace QueryObjectPattern
             return query;
         }
     }
-
 }

@@ -9,8 +9,8 @@ namespace QueryObjectPattern
         static void Main(string[] args)
         {
             TestQueryInStatus();
-            //TestQueryDto();
-            //TestQuery();
+            TestQueryDto();
+            TestQuery();
             //AddBook();
 
             Console.ReadKey();
@@ -71,9 +71,9 @@ namespace QueryObjectPattern
             var result = queryObj.Execute();
             foreach (var customer in result)
             {
-                Console.WriteLine(customer.FullName);
-                Console.WriteLine(customer.Matricola);
-                Console.WriteLine(customer.Password);
+                Console.WriteLine($"FullName:  {customer.FullName}");
+                Console.WriteLine($"Matricola: {customer.Matricola}");
+                Console.WriteLine($"Password: {customer.Password}");
                 Console.WriteLine("-------------------------------------");
             }
 
