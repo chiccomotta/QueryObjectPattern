@@ -1,5 +1,6 @@
 ﻿using QueryObjectPattern.DAL;
 using System;
+using QueryObjectPattern.QueryObjects;
 
 namespace QueryObjectPattern
 {
@@ -93,8 +94,8 @@ namespace QueryObjectPattern
             var result = queryObj.Execute();
             foreach (var customer in result)
             {
-                Console.WriteLine(customer.Nome);
-                Console.WriteLine(customer.Matricola);
+                Console.WriteLine($"Nome: {customer.Nome}");
+                Console.WriteLine($"Status: {customer.Status}");
                 Console.WriteLine("-------------------------------------");
             }
 

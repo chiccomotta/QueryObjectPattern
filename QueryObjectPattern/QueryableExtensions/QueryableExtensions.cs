@@ -37,6 +37,7 @@ namespace QueryObjectPattern.QueryableExtensions
 
             return query;
         }
+
         public static IQueryable<T> AddFilterIfValue<T>(this IQueryable<T> query, DateTime? date, Expression<Func<T, bool>> predicate)
         {
             if (date.HasValue)
