@@ -18,6 +18,16 @@ namespace QueryObjectPattern.QueryableExtensions
             return query;
         }
 
+        public static IQueryable<T> AddFilterIfValue<T>(this IQueryable<T> query, int? property, Expression<Func<T, bool>> predicate)
+        {
+            if (property.HasValue)
+            {
+                return query.Where(predicate);
+            }
+
+            return query;
+        }      
+
         public static IQueryable<T> AddFilterIfValue<T>(this IQueryable<T> query, string property, Expression<Func<T, bool>> predicate)
         {
             if (!string.IsNullOrWhiteSpace(property))

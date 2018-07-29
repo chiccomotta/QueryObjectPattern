@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Diagnostics;
-using System.Reflection.Metadata.Ecma335;
-using QueryObjectPattern.DAL;
+﻿using QueryObjectPattern.DAL;
+using System;
 
 namespace QueryObjectPattern
 {
@@ -10,9 +7,10 @@ namespace QueryObjectPattern
     {
         static void Main(string[] args)
         {
-            TestQueryDto();
-            TestQuery();
-            AddBook();
+            TestQueryInStatus();
+            //TestQueryDto();
+            //TestQuery();
+            //AddBook();
 
             Console.ReadKey();
         }
@@ -64,7 +62,8 @@ namespace QueryObjectPattern
             CustomersInDateDtoQueryObject queryObj =
                 new CustomersInDateDtoQueryObject (dbContext)
                 {
-                    StartDate = DateTime.Parse("2017-12-31"),
+                    Status = 2,
+                    StartDate = DateTime.Parse("2017-10-09"),
                     EndDate = null
                 };
 
@@ -74,6 +73,28 @@ namespace QueryObjectPattern
                 Console.WriteLine(customer.FullName);
                 Console.WriteLine(customer.Matricola);
                 Console.WriteLine(customer.Password);
+                Console.WriteLine("-------------------------------------");
+            }
+
+            Console.ReadKey();
+        }
+        public static void TestQueryInStatus()
+        {
+            // DbContext (in verità arriva dal container DI)
+            var dbContext = new StudioDBContext();
+
+            // Creo una query 
+            CustomersInStatusQueryObject queryObj =
+                new CustomersInStatusQueryObject(dbContext)
+                {
+                    Status = new[] {3,4}
+                };
+
+            var result = queryObj.Execute();
+            foreach (var customer in result)
+            {
+                Console.WriteLine(customer.Nome);
+                Console.WriteLine(customer.Matricola);
                 Console.WriteLine("-------------------------------------");
             }
 

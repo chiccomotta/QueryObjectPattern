@@ -13,7 +13,7 @@ namespace QueryObjectPattern
     public class CustomersInDateDtoQueryObject : QueryBase, IQueryObject<Customers, List<CustomersDto>>
     {
         public int Id { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
@@ -29,7 +29,7 @@ namespace QueryObjectPattern
                 {
                     FullName = c.Nome + " " + c.Cognome,
                     Matricola = c.Matricola.Value,
-                    Password = DateTime.Now.ToString()
+                    Password = new Random().Next().ToString()
                 })
                 .ToList();
         }
@@ -38,7 +38,8 @@ namespace QueryObjectPattern
         {
             var query = DbContext.Customers
                 .AddFilterIfValue(StartDate, c => c.SignUpDate >= StartDate)
-                .AddFilterIfValue(EndDate, c => c.SignUpDate < EndDate);
+                .AddFilterIfValue(EndDate, c => c.SignUpDate < EndDate)
+                .AddFilterIfValue(Status, c => c.Status == Status);                
 
             return query;
         }
