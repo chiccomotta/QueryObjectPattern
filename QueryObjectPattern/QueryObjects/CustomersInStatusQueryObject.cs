@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using QueryObjectPattern.DAL;
-using QueryObjectPattern.QueryableExtensions;
+﻿using QueryObjectPattern.DAL;
 using QueryObjectPattern.QueryObjects.Infrastructure;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace QueryObjectPattern.QueryObjects
 {

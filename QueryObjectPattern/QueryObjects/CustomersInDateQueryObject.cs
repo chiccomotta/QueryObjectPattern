@@ -1,11 +1,11 @@
-﻿using QueryObjectPattern.DAL;
-using QueryObjectPattern.QueryableExtensions;
-using QueryObjectPattern.QueryObjects.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using QueryObjectPattern.DAL;
+using QueryObjectPattern.QueryableExtensions;
+using QueryObjectPattern.QueryObjects.Infrastructure;
 
-namespace QueryObjectPattern
+namespace QueryObjectPattern.QueryObjects
 {
     // Esempio 1 - Classe che eredita da QueryBase per il costruttore e implementa l'interfaccia IQueryObject
     public class CustomersInDateQueryObject : QueryBase, IQueryObject<Customers, List<Customers>>
