@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Linq.Expressions;
+using System.Linq;
 
 namespace QueryObjectPattern
 {
-    public interface IQueryObject<T, out TR>
+    public interface IQueryObject<out T, out TResult>
     {
-        Expression<Func<T, bool>> Query();
-        TR Execute();
+        IQueryable<T> Query();
+        TResult Execute();
     }
 }

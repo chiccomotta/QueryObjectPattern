@@ -10,8 +10,8 @@ namespace QueryObjectPattern
     {
         static void Main(string[] args)
         {
-            TestQueryQueryable();
-            return;
+            TestQueryDto();
+            TestQuery();
 
             // DbContext (in verità arriva dal container DI)
             var dbContext = new StudioDBContext();
@@ -21,7 +21,7 @@ namespace QueryObjectPattern
 
             // Query Object
             var query = new PostDetailQuery(123, null);
-
+;
             // Execute Query
             var result = new PostDetailQueryHandler(dbContext).Execute(query);
 
@@ -29,7 +29,7 @@ namespace QueryObjectPattern
             Debug.Write(result);
 
             // ****
-            // Creo un oggetto QueryObject
+            // Creo un oggetto QueryObjectOldVersion
             CustomerByStatusAndIdQuery queryObj =
                 new CustomerByStatusAndIdQuery(dbContext)
                 {
@@ -60,14 +60,36 @@ namespace QueryObjectPattern
             context.SaveChanges();
         }
 
-        public static void TestQueryQueryable()
+        public static void TestQuery()
         {
             // DbContext (in verità arriva dal container DI)
             var dbContext = new StudioDBContext();
 
             // Creo un oggetto QueryObjectQueryable
-            CustomersInDate queryObj =
-                new CustomersInDate(dbContext)
+            CustomersInDateQueryObject queryObj =
+                new CustomersInDateQueryObject(dbContext)
+                {
+                    StartDate = DateTime.Parse("2017-12-31"),
+                    EndDate = DateTime.Parse("2018-01-01")
+                };
+
+            var result = queryObj.Execute();
+            foreach (var customer in result)
+            {
+                Console.WriteLine(customer.Nome + " " + customer.Cognome );
+            }
+
+            Console.ReadKey();
+        }
+
+        public static void TestQueryDto()
+        {
+            // DbContext (in verità arriva dal container DI)
+            var dbContext = new StudioDBContext();
+
+            // Creo una query 
+            CustomersInDateDtoQueryObject queryObj =
+                new CustomersInDateDtoQueryObject (dbContext)
                 {
                     StartDate = DateTime.Parse("2017-12-31"),
                     EndDate = null
@@ -76,7 +98,10 @@ namespace QueryObjectPattern
             var result = queryObj.Execute();
             foreach (var customer in result)
             {
-                Console.WriteLine(customer.Nome + " " + customer.Cognome );
+                Console.WriteLine(customer.FullName);
+                Console.WriteLine(customer.Matricola);
+                Console.WriteLine(customer.Password);
+                Console.WriteLine("-------------------------------------");
             }
 
             Console.ReadKey();

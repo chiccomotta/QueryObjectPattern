@@ -4,9 +4,9 @@ using QueryObjectPattern.DAL;
 
 namespace QueryObjectPattern
 {
-    public class QueryObject<T, TR> : QueryBase, IQueryObject<T, TR>
+    public class QueryObjectOldVersion<T, TR> : QueryBase, IQueryObjectOldVersion<T, TR>
     {
-        public QueryObject(StudioDBContext dbContext) : base(dbContext)
+        public QueryObjectOldVersion(StudioDBContext dbContext) : base(dbContext)
         {            
         }
 

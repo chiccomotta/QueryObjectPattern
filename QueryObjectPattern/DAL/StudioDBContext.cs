@@ -23,10 +23,6 @@ namespace QueryObjectPattern.DAL
         public virtual DbSet<Test1> Test1 { get; set; }
         public virtual DbSet<Book<Spices>> Books { get; set; }
 
-        // Unable to generate entity type for table 'dbo.ClientiRanbaxy'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.NewClientiRanbaxy'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.Contacts'. Please see the warning messages.
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

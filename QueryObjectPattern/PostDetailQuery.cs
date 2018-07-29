@@ -1,9 +1,9 @@
-﻿using System;
+﻿using QueryObjectPattern.DAL;
+using QueryObjectPattern.QueryableExtensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.InteropServices.WindowsRuntime;
-using QueryObjectPattern.DAL;
 
 namespace QueryObjectPattern
 {
@@ -20,7 +20,7 @@ namespace QueryObjectPattern
     }
 
     // Esempio 1 (con QueryBase e interfaccia)
-    public class CustomerByStatusAndIdQuery : QueryBase, IQueryObject<Customers, Customers>
+    public class CustomerByStatusAndIdQuery : QueryBase, IQueryObjectOldVersion<Customers, Customers>
     {
         public int Id { get; set; }
         public int Status { get; set; }
@@ -49,7 +49,7 @@ namespace QueryObjectPattern
 
 
     // Esempio 2 (con classe concreta)
-    public class MultiplePostsQuery : QueryObject<Customers, IEnumerable<Customers>>
+    public class MultiplePostsQuery : QueryObjectOldVersion<Customers, IEnumerable<Customers>>
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -69,8 +69,9 @@ namespace QueryObjectPattern
         }        
     }
 
-    // Esempio 3 (QueryBase e builder predicate)
-    public class CustomersInDate : QueryBase, IQueryObjectQueryable<Customers, List<Customers>>
+    // Esempio 3 - Classe che eredita da QueryBase per il costruttore e implementa
+    // l'interfaccia IQueryObject
+    public class CustomersInDateQueryObject : QueryBase, IQueryObject<Customers, List<Customers>>
     {
         public int Id { get; set; }
         public int Status { get; set; }
@@ -78,7 +79,7 @@ namespace QueryObjectPattern
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
-        public CustomersInDate(StudioDBContext dbContext) : base(dbContext)
+        public CustomersInDateQueryObject(StudioDBContext dbContext) : base(dbContext)
         {
         }
 
@@ -89,12 +90,47 @@ namespace QueryObjectPattern
 
         public IQueryable<Customers> Query()
         {
-            var query = DbContext.Customers.AddFilterIfValue(StartDate,
-                c =>  c.SignUpDate >= StartDate)
-                .AddFilterIfValue(EndDate,
-                c => c.SignUpDate < EndDate);
+            var query = DbContext.Customers
+                .AddFilterIfValue(StartDate, c =>  c.SignUpDate >= StartDate)
+                .AddFilterIfValue(EndDate, c => c.SignUpDate < EndDate);
 
             return query;
         }
     }
+
+    // Esempio 4 - stesso caso dell'esempio 3 ma la query ritorna una lista di Dto
+    public class CustomersInDateDtoQueryObject : QueryBase, IQueryObject<Customers, List<CustomersDto>>
+    {
+        public int Id { get; set; }
+        public int Status { get; set; }
+
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        public CustomersInDateDtoQueryObject(StudioDBContext dbContext) : base(dbContext)
+        {
+        }
+
+        public List<CustomersDto> Execute()
+        {
+            return Query()
+                .Select(c => new CustomersDto()
+                {
+                    FullName = c.Nome + " " + c.Cognome,
+                    Matricola = c.Matricola.Value,
+                    Password = DateTime.Now.ToString()
+                })
+                .ToList();
+        }
+
+        public IQueryable<Customers> Query()
+        {
+            var query = DbContext.Customers
+                .AddFilterIfValue(StartDate, c => c.SignUpDate >= StartDate)
+                .AddFilterIfValue(EndDate, c => c.SignUpDate < EndDate);
+
+            return query;
+        }
+    }
+
 }

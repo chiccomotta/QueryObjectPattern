@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace QueryObjectPattern
+namespace QueryObjectPattern.QueryableExtensions
 {
     public static class QueryableExtensions
     {
