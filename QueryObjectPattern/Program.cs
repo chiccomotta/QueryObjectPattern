@@ -48,7 +48,7 @@ namespace QueryObjectPattern
             var result = queryObj.Execute();
             foreach (var customer in result)
             {
-                Console.WriteLine(customer.Nome + " " + customer.Cognome );
+                Console.WriteLine($"{customer.Nome}  {customer.Cognome}");
             }
 
             Console.ReadKey();
