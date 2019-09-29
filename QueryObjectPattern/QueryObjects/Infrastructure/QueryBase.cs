@@ -2,10 +2,11 @@
 
 namespace QueryObjectPattern.QueryObjects.Infrastructure
 {
-    public class QueryBase
+    public abstract class QueryBase
     {
         protected readonly StudioDBContext DbContext;
-        public QueryBase(StudioDBContext dbContext)
+
+        protected QueryBase(StudioDBContext dbContext)
         {
             this.DbContext = dbContext;
         }
